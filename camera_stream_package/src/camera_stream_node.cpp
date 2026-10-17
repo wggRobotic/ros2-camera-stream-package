@@ -5,7 +5,6 @@
 class CameraStreamNode : public rclcpp::Node {
     public:
         CameraStreamNode() : Node("camera_stream_node") {
-            //stream_timer_ = this->create_wall_timer(std::chrono::milliseconds(1), std::bind(&CameraStreamNode::stream_camera_image, this));
             // Call the function once and start the stream
             CameraStreamNode::stream_camera_image();
         }
@@ -13,7 +12,10 @@ class CameraStreamNode : public rclcpp::Node {
         // Main function getting the camera image and streaming it via the RTSP protocoll
         void stream_camera_image() {
             // TODO: Get the current image
-            // Connect to a certain camera TODO: Support any camera by receiving the id via a topic
+
+            // Get the current camera image via OpenCV
+            // TODO: Support USB cameras with their own SDK
+            // Connect to a certain camera
             int id = 0;
             cv::VideoCapture camera(id);
             if (!camera.isOpened()) {
@@ -42,7 +44,6 @@ class CameraStreamNode : public rclcpp::Node {
             
             // TODO: stream the image via RTSP
         }
-        rclcpp::TimerBase::SharedPtr stream_timer_; // Timer which starts the stream
 };
 
 // Start the node
